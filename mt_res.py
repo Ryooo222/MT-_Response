@@ -32,7 +32,7 @@ def compute_mt_response(frequencies, depths, resistivities):
 # ----------------------------
 # Input: Depth of top surface of layer [m] and resistivity [Ω·m]
 
-depths = [0, 270, 1200, 12300, 14500]  # Depth of top surface [m] (the deepest layer at the end)
+depths = [0, 270, 1800, 12300, 14500]  # Depth of top surface [m] (the deepest layer at the end)
 resistivities = [150, 9, 300, 5, 30]  # Resistivity of each layer [Ω·m]
 
 # nice numbers
@@ -41,7 +41,7 @@ resistivities = [150, 9, 300, 5, 30]  # Resistivity of each layer [Ω·m]
 
 
 # Frequency range (Hz)
-frequencies = np.logspace(-2.5, 2.5, 200)
+frequencies = np.logspace(-5, 5, 200)
 
 # calculate MT response
 rho_a, phase = compute_mt_response(frequencies, depths, resistivities)
@@ -81,7 +81,7 @@ ax1.set_ylabel('Apparent Resistivity [Ω·m]', color='blue')
 ax1.plot(frequencies, rho_a, label="model", c="b")
 ax1.plot(obs_df["f(hz)"], obs_df["Rhoxy ohm-m."], label="obs", c="b", linestyle='--')
 ax1.tick_params(axis='y', labelcolor='blue')
-ax1.set_title(f'Apparent Resistivity (RMS: {rms_rho:.4f})')
+ax1.set_title(f'Apparent Resistivity)')
 ax1.set_ylim(1e0, 1e3)
 ax1.grid(True, which='both', ls='--', alpha=0.5)
 ax1.legend()
@@ -94,7 +94,7 @@ ax2.set_ylabel('Phase [deg]', color='red')
 ax2.plot(frequencies, phase, label='model', c='r')
 ax2.plot(obs_df["f(hz)"], obs_df["PHASExy Deg."], label="obs", c="red", linestyle='--')
 ax2.tick_params(axis='y', labelcolor='red')
-ax2.set_title(f'Phase (RMS: {rms_phase:.4f})')
+ax2.set_title(f'Phase')
 ax2.set_ylim(0, 90)
 ax2.grid(True, which='both', ls='--', alpha=0.5)
 ax2.legend()
@@ -102,7 +102,7 @@ ax2.legend()
 # 45 degree line
 ax2.axhline(45, color='gray', linewidth=1, linestyle='--', alpha=0.8)
 
-plt.suptitle('MT Response (1D Layered Earth)')
+plt.suptitle('MT Response (1D Layered Earth)\n top of 3rd layer: 1800 m')
 plt.tight_layout(rect=[0, 0, 1, 0.96])
 # plt.show()
 plt.savefig("mt_res.png", dpi=300)
